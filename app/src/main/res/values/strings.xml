@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Sport Events</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="server_ipport">192.168.0.101:8080</string>
+    <string name="stadium">See Stadium Layout</string>
+    <string name="seats">Get Available Seats</string>
+</resources>
