@@ -20,11 +20,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FirstActivity extends AppCompatActivity {
 
     private String firebaseId = null;
+
+    private List<String> respList = null;
+    static public Map<String, Map<String, List<Integer>>> stadium = new HashMap<>();
+    static public int rowsPerSector = 0;
+    static public int seatsPerRow = 0;
 
     private Handler handler = new Handler();
     private Runnable runnableCode = new Runnable() {
@@ -51,35 +58,59 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://" + getResources().getString(R.string.server_ipport) + "/api/app/getStadiumSectors";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONArray respArray = new JSONArray(response);
-                            List<String> respList = new ArrayList<>();
+        if (respList == null) {
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = "http://" + getResources().getString(R.string.server_ipport) + "/api/app/getStadiumSectors";
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONArray respArray = new JSONArray(response);
+                                respList = new ArrayList<>();
 
-                            for (int i = 0; i < respArray.length(); i++) {
-                                respList.add(respArray.get(i).toString());
+                                rowsPerSector = respArray.getInt(respArray.length() - 2);
+                                seatsPerRow = respArray.getInt(respArray.length() - 1);
+
+                                for (int i = 0; i < respArray.length() - 2; i++) {
+                                    respList.add(respArray.get(i).toString());
+
+                                    String tmp = respArray.get(i).toString();
+                                    String[] parts = tmp.split("\\.");
+                                    String category = parts[0];
+                                    String sector = parts[1];
+
+                                    if (stadium.containsKey(category) == false) {
+                                        stadium.put(category, new HashMap<String, List<Integer>>());
+                                    }
+
+                                    Map<String, List<Integer>> map = stadium.get(category);
+                                    List<Integer> seats = new ArrayList<>();
+                                    for (int j = 1; j <= rowsPerSector; j++) {
+                                        for (int k = 1; k <= seatsPerRow; k++) {
+                                            seats.add(0);
+                                        }
+                                    }
+                                    map.put(sector, seats);
+                                }
+                                System.out.println(stadium);
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                            System.out.println(respList);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println(error.toString());
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        System.out.println(error.toString());
-                    }
-                }
-        );
+            );
 
-        queue.add(stringRequest);
-
+            queue.add(stringRequest);
+        }
     }
 
 
