@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "951515340308",
+    "firebase_url": "https://sportevents-8fa17.firebaseio.com",
+    "project_id": "sportevents-8fa17",
+    "storage_bucket": "sportevents-8fa17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951515340308:android:18876db68638bb8402d101",
+        "android_client_info": {
+          "package_name": "com.example.mapsapp1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951515340308-g8jorvp9m6v50lk546rj6ibe717jc80t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mapsapp1",
+            "certificate_hash": "15daa832fd8cca287a4f2d2933df7b1e1f529fd0"
+          }
+        },
+        {
+          "client_id": "951515340308-gjqb5ei61s2hgs5v3bhtep5j1gov9td3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJMIhx4Odbs6mLaeerbkpmvq5rOQS6LmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951515340308-gjqb5ei61s2hgs5v3bhtep5j1gov9td3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
