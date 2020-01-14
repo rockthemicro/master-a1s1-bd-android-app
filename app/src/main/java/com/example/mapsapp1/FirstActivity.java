@@ -2,6 +2,7 @@ package com.example.mapsapp1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,13 +23,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FirstActivity extends AppCompatActivity {
-    String firebaseId = null;
+
+    private String firebaseId = null;
+
+    private Handler handler = new Handler();
+    private Runnable runnableCode = new Runnable() {
+
+        @Override
+        public void run() {
+            handler.postDelayed(this, 2000);
+        }
+    };
 
     {
         FirebaseApp.initializeApp(this);
         FirebaseInstanceId firebaseInstanceId = FirebaseInstanceId.getInstance();
         firebaseId = firebaseInstanceId.getId();
+
+
+        /* setup kafka produce periodically */
+        //handler.post(runnableCode);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +81,8 @@ public class FirstActivity extends AppCompatActivity {
         queue.add(stringRequest);
 
     }
+
+
 
     public void seeStadiumOnClick(View view) {
         Intent intent = new Intent(this, StadiumActivity.class);

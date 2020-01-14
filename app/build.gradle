@@ -35,5 +35,5 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
 
-
+    implementation 'org.apache.kafka:kafka-clients:2.4.0'
 }
